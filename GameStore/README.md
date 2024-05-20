@@ -46,11 +46,11 @@ The goal of this project is to build a GameStore API using .NET 8, with a focus 
 - Write unit tests for the repository, service, and controller.
 - Use mocking frameworks (e.g., Moq) to isolate dependencies.
 
-### Integration Testing (Optional)
+### Integration Testing (OPTIONAL)
 - Test the entire API by making HTTP requests to endpoints.
 - Verify that the API behaves correctly in a real-world scenario.
 
-### Deployment and Hosting
+### Deployment and Hosting (OPTIONAL)
 - Choose a hosting platform (e.g., Azure, AWS, Heroku).
 - Deploy your API to a production environment.
 
