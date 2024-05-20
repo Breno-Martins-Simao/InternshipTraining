@@ -3,6 +3,5 @@
 ################################################################################
 
 /.vs
-/GameStore/.vs/GameStore/v17
 /GameStore/bin/Debug/net8.0
 /GameStore/obj
