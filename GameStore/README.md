@@ -6,12 +6,12 @@ The goal of this project is to build a GameStore API using .NET 8, with a focus 
 ## Tasks
 
 ### Setup Project and Solution
-- Create a new .NET 8 project (e.g., ASP.NET Core Web API).
-- Organize the solution with appropriate folders (Controllers, Services, Repositories, etc.).
+- Create a new .NET 8 project (e.g., ASP.NET Core Web API). ok
+- Organize the solution with appropriate folders (Controllers, Services, Repositories, etc.). ok
 
 ### Model: Game
-- Define the `Game` model class with properties such as `Id`, `Title`, `Genre`, `Platform`, `ReleaseDate`, `CreatedAt`.
-- Configure the Entity Framework context to include the `Game` model.
+- Define the `Game` model class with properties such as `Id`, `Title`, `Genre`, `Platform`, `ReleaseDate`, `CreatedAt`. ok
+- Configure the Entity Framework context to include the `Game` model. ok
 
 ### Database Setup
 - Configure the database connection string in the `appsettings.json` file.

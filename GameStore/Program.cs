@@ -1,3 +1,4 @@
+using GameStore.Data;
 using GameStore.Interfaces;
 using GameStore.Services;
 
@@ -9,6 +10,7 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddScoped<GameDbContext>();
 
 var services = builder.Services;
 
