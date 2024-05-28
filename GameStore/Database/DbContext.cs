@@ -1,10 +1,16 @@
 ﻿using GameStore.Models.Database;
-using System.Data.Entity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace GameStore.Database
 {
-    public class GamesDb : DbContext
+    public class GamesDbContext : DbContext
     {
+        public GamesDbContext(DbContextOptions<GamesDbContext> options)
+        : base(options)
+        {}
+
         public DbSet<Game> Games { get; set; }
+
     }
 }
