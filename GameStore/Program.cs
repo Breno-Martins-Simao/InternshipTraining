@@ -4,13 +4,6 @@ using GameStore.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
-//Building configurations
-var cfg = new ConfigurationBuilder()
-.SetBasePath(builder.Environment.ContentRootPath)
-.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-.AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true)
-.AddEnvironmentVariables()
-.Build();
 
 // Add services to the container.
 builder.Services.AddControllers();
@@ -19,7 +12,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<GamesDbContext>(options =>
-  options.UseSqlite(cfg.GetConnectionString("GamesDbConn"))
+  options.UseSqlite(builder.Configuration.GetConnectionString("GamesDbConn"))
 );
 
 
