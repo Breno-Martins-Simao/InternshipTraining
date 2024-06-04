@@ -4,10 +4,19 @@ namespace GameStore.Interfaces
 {
     public interface IGameService
     {
-        IEnumerable<Game> GetAllGames();
-        IEnumerable<Game> GetGamesByName(string game);
-        Game AddGame(Game game);
-        Game UpdateGame(Game game);
-        bool DeleteGame(Game game);
+        Task<IEnumerable<Game>> GetAllGames();
+        Task<Game> GetGamesByID(int id);
+        Task AddGame(Game game);
+        Task UpdateGame(Game game);
+        Task DeleteGame(int id);
+    }
+
+    public interface IGameRepository
+    {
+        Task<IEnumerable<Game>> GetAllGames();
+        Task<Game> GetGamesByID(int id);
+        Task AddGame(Game game);
+        Task UpdateGame(Game game);
+        Task DeleteGame(int id);
     }
 }

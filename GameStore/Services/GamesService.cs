@@ -5,38 +5,36 @@ namespace GameStore.Services
 {
     public class GamesService : IGameService
     {
-        private static List<Game> _GamesDb = new List<Game>();
-        private readonly ILogger<GamesService> _Logger;
+        private readonly IGameRepository _GameRepository;
 
-        public GamesService(ILogger<GamesService> logger) 
-        { 
-            _Logger = logger;
+        public GamesService(IGameRepository gameRepository)
+        {
+            _GameRepository = gameRepository;
         }
 
-        public Game AddGame(Game game)
+        public async Task<IEnumerable<Game>> GetAllGames()
         {
-            _GamesDb.Add(game);
-            return game;
+            return await _GameRepository.GetAllGames();
         }
 
-        public bool DeleteGame(Game game)
+        public async Task<Game> GetGamesByID(int id)
         {
-            throw new NotImplementedException();
+            return await _GameRepository.GetGamesByID(id);
         }
 
-        public IEnumerable<Game> GetAllGames()
+        public async Task AddGame(Game game)
         {
-            return _GamesDb;
+            await _GameRepository.AddGame(game);
         }
 
-        public IEnumerable<Game> GetGamesByName(string game)
+        public async Task UpdateGame(Game game)
         {
-            throw new NotImplementedException();
+            await _GameRepository.UpdateGame(game);
         }
-
-        public Game UpdateGame(Game game)
+        public async Task DeleteGame(int id)
         {
-            throw new NotImplementedException();
+            await _GameRepository.DeleteGame(id);
         }
     }
 }
+
