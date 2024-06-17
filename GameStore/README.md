@@ -55,3 +55,6 @@ The goal of this project is to build a GameStore API using .NET 8, with a focus 
 - Deploy your API to a production environment.
 
 Remember to adapt these tasks to your specific project requirements. Good luck with your GameStore API development!
+
+Arrumar Controller
+Classes de Serviços e Repositorios Comentadas

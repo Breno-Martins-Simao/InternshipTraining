@@ -17,25 +17,14 @@ namespace GameStore.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Game>> PostGame(Game game)
+        public ActionResult<GameRequest> PostGame([FromBody] GameRequest game)
         {
-            try
-            {
-                await _GameService.AddGame(game);
-                return CreatedAtAction(nameof(GetGame), new { id = game.Id }, game);
-            }
-            catch (ArgumentException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"An error occurred while adding the game: {ex.Message}");
-            }
+            var createdGame = _GameService.AddGame(game);
+            return CreatedAtAction(nameof (PostGame),game);
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Game>> GetAllGames()
+        public ActionResult<IEnumerable<GameRequest>> GetAllGames()
         {
             try
             {
@@ -44,32 +33,24 @@ namespace GameStore.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"An error occurred while retrieving games: {ex.Message}");
+                return StatusCode(500, $"An error occurred while retrieving games:");
             }
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Game>> GetGame(int id)
+        public ActionResult<GameRequest> GetGameByID(string id)
         {
-            try
+            var translate = Guid.TryParse(id, out var gameId);
+            if (!translate)
             {
-                var game = await _GameService.GetGamesByID(id);
-
-                if (game == null)
-                {
-                    return NotFound("Game not found");
-                }
-
-                return Ok(game);
+                return BadRequest();
             }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"An error occurred while retrieving the game with id {id}: {ex.Message}");
-            }
+            var result = _GameService.GetGameByID(gameId);
+            return result is not null ? Ok(result) : NoContent();
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutGame(int id, Game updatedGame)
+        public async Task<IActionResult> PutGame(int id, GameRequest updatedGame)
         {
             if (id != updatedGame.Id)
             {
@@ -78,7 +59,7 @@ namespace GameStore.Controllers
 
             try
             {
-                var existingGame = await _GameService.GetGamesByID(id);
+                var existingGame = await _GameService.GetGameByID(id);
                 if (existingGame == null)
                 {
                     return NotFound("Game not found");
@@ -105,7 +86,7 @@ namespace GameStore.Controllers
         {
             try
             {
-                var game = await _GameService.GetGamesByID(id);
+                var game = await _GameService.GetGameByID(id);
                 if (game == null)
                 {
                     return NotFound("Game not found");
@@ -122,7 +103,7 @@ namespace GameStore.Controllers
 
         private async Task<bool> GameExists(int id)
         {
-            return await _GameService.GetGamesByID(id) != null;
+            return await _GameService.GetGameByID(id) != null;
         }
     }
 }

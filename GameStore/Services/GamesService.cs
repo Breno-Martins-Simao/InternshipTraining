@@ -1,5 +1,6 @@
 ﻿using GameStore.Interfaces;
 using GameStore.Models.API;
+using GameStore.Models.DataBase;
 
 namespace GameStore.Services
 {
@@ -12,28 +13,28 @@ namespace GameStore.Services
             _GameRepository = gameRepository;
         }
 
-        public async Task<IEnumerable<Game>> GetAllGames()
+        public IEnumerable<Game>? GetAllGames()
         {
-            return await _GameRepository.GetAllGames();
+            return _GameRepository.GetAllGames();
         }
 
-        public async Task<Game> GetGamesByID(int id)
+        public Game? GetGameByID(Guid id)
         {
-            return await _GameRepository.GetGamesByID(id);
+            return _GameRepository.GetGameByID(id);
         }
 
-        public async Task AddGame(Game game)
+        public Game AddGame(GameRequest game)
         {
-            await _GameRepository.AddGame(game);
+            return _GameRepository.AddGame(game);
         }
 
-        public async Task UpdateGame(Game game)
+        public Game? UpdateGame(Guid id, GameRequest game)
         {
-            await _GameRepository.UpdateGame(game);
+            return _GameRepository.UpdateGame(id, game);
         }
-        public async Task DeleteGame(int id)
+        public Game? DeleteGame(Guid id)
         {
-            await _GameRepository.DeleteGame(id);
+            return _GameRepository.DeleteGame(id);
         }
     }
 }
