@@ -36,6 +36,7 @@ namespace GameStore.Services
         {
             return _GameRepository.DeleteGame(id);
         }
+
     }
 }
 

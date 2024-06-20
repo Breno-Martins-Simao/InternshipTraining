@@ -1,5 +1,6 @@
 using GameStore.Interfaces;
 using GameStore.Models.API;
+using GameStore.Models.DataBase;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -50,60 +51,27 @@ namespace GameStore.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutGame(int id, GameRequest updatedGame)
+        public ActionResult<IEnumerable<GameRequest>> PutGame(string id, GameRequest game)
         {
-            if (id != updatedGame.Id)
+            var translate = Guid.TryParse(id, out var gameId);
+            if (!translate)
             {
-                return BadRequest("The game ID in the URL does not match the game ID in the body.");
+                return BadRequest();
             }
-
-            try
-            {
-                var existingGame = await _GameService.GetGameByID(id);
-                if (existingGame == null)
-                {
-                    return NotFound("Game not found");
-                }
-
-                existingGame.Title = updatedGame.Title;
-                existingGame.Genre = updatedGame.Genre;
-
-                await _GameService.UpdateGame(existingGame);
-                return NoContent();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                return StatusCode(500, "A concurrency error occurred while updating the game. Please try again.");
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"An error occurred while updating the game with id {id}: {ex.Message}");
-            }
+            var gameUpdated = _GameService.UpdateGame(gameId, game);
+            return gameUpdated is not null ? Ok(gameUpdated) : NoContent();
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteGame(int id)
+        public ActionResult<GameRequest> DeleteGame(string id)
         {
-            try
+            var translate = Guid.TryParse (id, out var gameId);
+            if (!translate)
             {
-                var game = await _GameService.GetGameByID(id);
-                if (game == null)
-                {
-                    return NotFound("Game not found");
-                }
-
-                await _GameService.DeleteGame(id);
-                return NoContent();
+                return BadRequest();
             }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"An error occurred while deleting the game with id {id}: {ex.Message}");
-            }
-        }
-
-        private async Task<bool> GameExists(int id)
-        {
-            return await _GameService.GetGameByID(id) != null;
+            var gameDeleted = _GameService.DeleteGame(gameId);
+            return gameDeleted is not null ? Ok(gameDeleted) : NoContent();
         }
     }
 }
