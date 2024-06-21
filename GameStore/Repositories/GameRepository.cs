@@ -2,6 +2,7 @@
 using GameStore.Interfaces;
 using GameStore.Models.API;
 using GameStore.Models.DataBase;
+using GameStore.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace GameStore.Repositories
@@ -21,7 +22,7 @@ namespace GameStore.Repositories
             {
                 Id = Guid.NewGuid(),
                 Title = game.Title,
-                Platform = game.Platform,
+                Platform = game.Platform,  
                 Genre = game.Genre,
                 ReleaseDate = game.ReleaseDate,
                 CreatedAt = DateTime.UtcNow

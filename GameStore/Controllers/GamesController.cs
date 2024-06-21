@@ -21,7 +21,7 @@ namespace GameStore.Controllers
         public ActionResult<GameRequest> PostGame([FromBody] GameRequest game)
         {
             var createdGame = _GameService.AddGame(game);
-            return CreatedAtAction(nameof (PostGame),game);
+            return CreatedAtAction(nameof (PostGame), new { id = createdGame.Id }, createdGame);
         }
 
         [HttpGet]

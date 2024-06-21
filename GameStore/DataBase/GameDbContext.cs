@@ -1,4 +1,5 @@
-﻿using GameStore.Models.DataBase;
+﻿using System.Reflection.Emit;
+using GameStore.Models.DataBase;
 using Microsoft.EntityFrameworkCore;
 
 namespace GameStore.Data
@@ -10,5 +11,6 @@ namespace GameStore.Data
         }
 
         public DbSet<Game> Games { get; set; }
+
     }
 }
